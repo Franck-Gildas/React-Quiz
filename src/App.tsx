@@ -6,6 +6,9 @@ import {
 } from "./services/api-client";
 import QuestionCard from "./components/QuestionCard";
 
+//Styles
+import { GlobalStyle, Wrapper } from "./App.styles";
+
 export type AnswerObject = {
   question: string;
   answer: string;
@@ -74,32 +77,35 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>REACT QUIZ</h1>
-      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-        <button className="start" onClick={startTrivia}>
-          Start
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <h1>REACT QUIZ</h1>
+        {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+          <button className="start" onClick={startTrivia}>
+            Start
+          </button>
+        ) : null}
+
+        {!gameOver ? <p className="score">Score: {score}</p> : null}
+        {loading && <p>Loading Questions...</p>}
+
+        {!loading && !gameOver && (
+          <QuestionCard
+            questionNumber={number + 1}
+            totalQuestions={TOTAL_QUESTIONS}
+            question={questions[number].question}
+            answers={questions[number].answers}
+            userAnswer={userAnswers ? userAnswers[number] : undefined}
+            callback={checkAnswer}
+          />
+        )}
+
+        <button className="next" onClick={nextQuestion}>
+          Next
         </button>
-      ) : null}
-
-      {!gameOver ? <p className="score">Score: {score}</p> : null}
-      {loading && <p>Loading Questions...</p>}
-
-      {!loading && !gameOver && (
-        <QuestionCard
-          questionNumber={number + 1}
-          totalQuestions={TOTAL_QUESTIONS}
-          question={questions[number].question}
-          answers={questions[number].answers}
-          userAnswer={userAnswers ? userAnswers[number] : undefined}
-          callback={checkAnswer}
-        />
-      )}
-
-      <button className="next" onClick={nextQuestion}>
-        Next
-      </button>
-    </div>
+      </Wrapper>
+    </>
   );
 };
 
