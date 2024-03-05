@@ -23,13 +23,15 @@ const QuestionCard = ({
 
       <p dangerouslySetInnerHTML={{ __html: question }} />
       <div>
-        {answers.map((answer) => (
-          <div>
-            <button disabled={userAnswer} onClick={callback}>
-              <span dangerouslySetInnerHTML={{ __html: answer }} />
-            </button>
-          </div>
-        ))}
+        {answers &&
+          Array.isArray(answers) &&
+          answers.map((answer) => (
+            <div key={answer}>
+              <button disabled={userAnswer} value={answer} onClick={callback}>
+                <span dangerouslySetInnerHTML={{ __html: answer }} />
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
