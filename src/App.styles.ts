@@ -63,9 +63,20 @@ export const Wrapper = styled.div`
     height: 40px;
     margin: 20px 0;
     padding: 0 40px;
+    transition: all 0.15s ease;
   }
 
   .start {
     max-width: 200px;
+  }
+
+  .start:hover,
+  .next:hover {
+    opacity: 0.8;
+  }
+
+  .start:active,
+  .next:active {
+    opacity: 0.5;
   }
 `;

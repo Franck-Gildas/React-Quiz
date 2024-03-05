@@ -1,6 +1,9 @@
 import { MouseEvent } from "react";
 import { AnswerObject } from "../App";
 
+//Styles
+import { Wrapper, ButtonWrapper } from "./QuestionCard.styles";
+
 interface Props {
   question: string;
   answers: string[];
@@ -19,7 +22,7 @@ const QuestionCard = ({
   totalQuestions,
 }: Props) => {
   return (
-    <div>
+    <Wrapper>
       <p className="number">
         Question: {questionNumber} / {totalQuestions}
       </p>
@@ -29,7 +32,11 @@ const QuestionCard = ({
         {answers &&
           Array.isArray(answers) &&
           answers.map((answer) => (
-            <div key={answer}>
+            <ButtonWrapper
+              correct={userAnswer?.correctAnswer === answer}
+              userClicked={userAnswer?.answer === answer}
+              key={answer}
+            >
               <button
                 disabled={userAnswer ? true : false}
                 value={answer}
@@ -37,10 +44,10 @@ const QuestionCard = ({
               >
                 <span dangerouslySetInnerHTML={{ __html: answer }} />
               </button>
-            </div>
+            </ButtonWrapper>
           ))}
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
